@@ -1,7 +1,20 @@
-name: Test Project
+name: Deploy Project
 on: push
 jobs:
-  build:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install NodeJs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install
+      - name: Run test
+        run: npm test
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -14,3 +27,5 @@ jobs:
         run: npm install
       - name: Run build
         run: npm run build
+      - name: Deploy to GitHub Pages
+        run: echo "Deploying to GitHub Pages..."
